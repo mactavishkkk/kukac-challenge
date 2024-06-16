@@ -4,6 +4,7 @@ import Register from './pages/Register';
 import Expense from './pages/Expenses';
 import Navbar from './components/Navbar';
 import './App.css';
+import Rent from './pages/Rent';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           <Route path="/expenses" element={<Expense />} />
-          <Route path="/expense" element={<Expense />} />
+          <Route path="/rents" element={<Rent />} />
         </Routes>
       </div>
     </Router>
