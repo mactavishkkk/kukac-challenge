@@ -1,0 +1,14 @@
+networks:
+  dev:
+    driver: bridge
+
+services:
+  wvb-challenge-app:
+    container_name: docker-wvb
+    ports:
+      - "3002:3000"
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - dev
