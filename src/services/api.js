@@ -21,9 +21,13 @@ export const login = async (email, password) => {
             throw new Error('Failed to login');
         }
 
-        const token = await response.data;
+        const token = await response.data.token;
+        const userId = await response.data.user.id;
+        const userName = await response.data.user.name;
 
         cookies.set("token", token);
+        cookies.set("user_id", userId);
+        cookies.set("user_name", userName);
         cookies.set("user_email", email);
 
         return response;
@@ -56,7 +60,7 @@ export const getAllExpenses = async () => {
 
         return response;
     } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching expenses:', error);
         throw error;
     }
 };
@@ -64,14 +68,14 @@ export const getAllExpenses = async () => {
 export const createExpense = async (expense) => {
     try {
         const token = cookies.get('token');
-
+        
         const response = await api.post('/expenses', expense, {
             headers: { Authorization: `Bearer ${token}` },
         });
 
         return response;
     } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error('Error fetching expenses:', error);
         throw error;
     }
 };
@@ -97,6 +101,70 @@ export const deleteExpense = async (id) => {
         const token = cookies.get('token');
 
         const response = await api.delete(`/expenses/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// RENTS
+
+export const getAllRents = async () => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.get('/rents', {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching rents:', error);
+        throw error;
+    }
+};
+
+export const createRent = async (expense) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.post('/rents', expense, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching rents:', error);
+        throw error;
+    }
+};
+
+export const updateRent = async (id, updatedExpense, token) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.put(`/rents/${id}`, updatedExpense, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deleteRent = async (id) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.delete(`/rents/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
-import { createExpense, deleteExpense, getAllExpenses } from '../services/api';
+import { createRent, deleteRent, getAllRents } from '../services/api';
 import { FiMoreVertical } from 'react-icons/fi';
 
 const Rent = () => {
@@ -15,20 +15,20 @@ const Rent = () => {
     const cookies = new Cookies();
     const token = cookies.get('token');
     const userEmail = cookies.get('user_email');
+    const userId = cookies.get('user_id');
 
     const userRents = rents.filter(rent => rent.user.email === userEmail);
 
     const handleAddRent = async (e) => {
         e.preventDefault();
 
+        let parseValue = parseFloat(value);
+        let parseDate = new Date(date).toISOString();
+
         try {
-            const response = await createExpense({ name, value, date });
-
-            setRents([...rents, response.data]);
-
-            setName('');
-            setValue('');
-            setDate('');
+            await createRent({ userId, name, value: parseValue, date: parseDate });
+            alert('Renda criada com sucesso!');
+            window.location.reload();
         } catch (error) {
             console.error('Error adding rent:', error);
         }
@@ -40,7 +40,7 @@ const Rent = () => {
 
     const handleDelete = (id) => {
         if (window.confirm('Tem certeza que deseja excluir esta despesa?')) {
-            deleteExpense(id)
+            deleteRent(id)
                 .then(() => {
                     window.location.reload();
                 })
@@ -56,7 +56,7 @@ const Rent = () => {
         if (!token) {
             navigate('/');
         } else {
-            getAllExpenses().then(response => response)
+            getAllRents().then(response => response)
                 .then(data => setRents(data.data))
                 .catch(error => console.error('Erro ao obter as despesas:', error));
         }

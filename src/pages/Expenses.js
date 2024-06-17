@@ -15,20 +15,21 @@ const Expenses = () => {
     const cookies = new Cookies();
     const token = cookies.get('token');
     const userEmail = cookies.get('user_email');
+    const userId = cookies.get('user_id');
 
     const userExpenses = expenses.filter(expense => expense.user.email === userEmail);
 
     const handleAddExpense = async (e) => {
         e.preventDefault();
 
-        try {
-            const response = await createExpense({ name, value, date });
+        let parseValue = parseFloat(value);
+        let parseDate = new Date(date).toISOString();
 
-            setExpenses([...expenses, response.data]);
-            
-            setName('');
-            setValue('');
-            setDate('');
+        try {
+            await createExpense({ userId, name, value: parseValue, date: parseDate });
+            alert('Despesa criada com sucesso!');
+            window.location.reload();
+
         } catch (error) {
             console.error('Error adding expense:', error);
         }
