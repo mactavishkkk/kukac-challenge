@@ -24,7 +24,7 @@ const Navbar = () => {
                         <>
                             <Link to="/rents" className="text-white hover:text-lime-600 mr-4">Rendas</Link>
                             <Link to="/expenses" className="text-white hover:text-red-600 mr-4">Despesas</Link>
-                            <span className="text-white mr-4">{userEmail}</span>
+                            <Link to="/edit-user" className="text-white hover:text-sky-700 mr-4">{userEmail}</Link>
                             <button onClick={handleLogout} className="text-white hover:text-sky-700">Logout</button>
                         </>
                     ) : (

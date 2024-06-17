@@ -48,6 +48,37 @@ export const logout = async () => {
     }
 };
 
+export const getUser = async (id) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.get(`/users/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching expenses:', error);
+        throw error;
+    }
+};
+
+export const updateUser = async (id, updatedUser) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.put(`/users/${id}`, updatedUser, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+        return response;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // EXPENSES
 
 export const getAllExpenses = async () => {
@@ -65,10 +96,25 @@ export const getAllExpenses = async () => {
     }
 };
 
+export const getExpenseById = async (id) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.get(`/expenses/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching expense:', error);
+        throw error;
+    }
+};
+
 export const createExpense = async (expense) => {
     try {
         const token = cookies.get('token');
-        
+
         const response = await api.post('/expenses', expense, {
             headers: { Authorization: `Bearer ${token}` },
         });
@@ -80,7 +126,7 @@ export const createExpense = async (expense) => {
     }
 };
 
-export const updateExpense = async (id, updatedExpense, token) => {
+export const updateExpense = async (id, updatedExpense) => {
     try {
         const token = cookies.get('token');
 
@@ -129,6 +175,21 @@ export const getAllRents = async () => {
     }
 };
 
+export const getRentById = async (id) => {
+    try {
+        const token = cookies.get('token');
+
+        const response = await api.get(`/rents/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return response;
+    } catch (error) {
+        console.error('Error fetching rent:', error);
+        throw error;
+    }
+};
+
 export const createRent = async (expense) => {
     try {
         const token = cookies.get('token');
@@ -144,7 +205,7 @@ export const createRent = async (expense) => {
     }
 };
 
-export const updateRent = async (id, updatedExpense, token) => {
+export const updateRent = async (id, updatedExpense) => {
     try {
         const token = cookies.get('token');
 

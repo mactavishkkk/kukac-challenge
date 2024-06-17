@@ -50,7 +50,7 @@ const Expenses = () => {
     };
 
     const handleEdit = (id) => {
-        // Implement the edit functionality
+        navigate('/edit-expense/' + id)
     };
 
     useEffect(() => {

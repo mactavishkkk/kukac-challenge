@@ -39,17 +39,17 @@ const Rent = () => {
     };
 
     const handleDelete = (id) => {
-        if (window.confirm('Tem certeza que deseja excluir esta despesa?')) {
+        if (window.confirm('Tem certeza que deseja excluir esta renda?')) {
             deleteRent(id)
                 .then(() => {
                     window.location.reload();
                 })
-                .catch(error => console.error('Erro ao excluir despesa:', error));
+                .catch(error => console.error('Erro ao excluir renda:', error));
         }
     };
 
     const handleEdit = (id) => {
-        // Implement the edit functionality
+        navigate('/edit-rent/' + id);
     };
 
     useEffect(() => {
@@ -58,7 +58,7 @@ const Rent = () => {
         } else {
             getAllRents().then(response => response)
                 .then(data => setRents(data.data))
-                .catch(error => console.error('Erro ao obter as despesas:', error));
+                .catch(error => console.error('Erro ao obter as rendas:', error));
         }
     }, [token]);
 
@@ -97,7 +97,7 @@ const Rent = () => {
                         />
                     </div>
                     <button type="submit" className="col-span-2 bg-blue-500 hover:bg-sky-700 text-white p-2 rounded">
-                        Adicionar Despesa
+                        Adicionar Renda
                     </button>
                 </div>
             </form>
