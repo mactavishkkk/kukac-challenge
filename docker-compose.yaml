@@ -3,11 +3,11 @@ networks:
     driver: bridge
 
 services:
-  wvb-challenge-app:
-    container_name: docker-wvb
+  kukac-challenge-app:
+    container_name: kukac
     ports:
       - "3002:3000"
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile
     networks:
